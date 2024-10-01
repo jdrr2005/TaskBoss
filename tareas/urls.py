@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 router.register(r'tareas', views.VistaTarea, 'Tareas')
 
 urlpatterns = [
+    path("api/tareas/", include(router.urls)),
     path("api/tareas/", include(router.urls))
 ]
 
