@@ -1,10 +1,10 @@
 from django.urls import path, include
-from rest_framework import routers
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from usuarios import views
 
-router = routers.DefaultRouter()
-router.register(r'usuarios', views.VistaTarea, 'Usuarios')
-
 urlpatterns = [
-    path("api/usuarios/", include(router.urls))
+    path('create/', views.CreateUserView.as_view()),
+    path('user/', views.RetreiveUpdateUserView.as_view()),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
