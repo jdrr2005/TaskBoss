@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'tareas',
     'usuarios'
 ]
 
@@ -138,5 +137,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #CORS AUTHORIZED
 CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+
+#Token JWT
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+# Cambia el usuario para usar el modelo propio
+AUTH_USER_MODEL = 'usuarios.CustomUser'
 
 

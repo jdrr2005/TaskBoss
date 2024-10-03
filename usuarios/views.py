@@ -1,14 +1,22 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from .serializers import Usuarioserializer
-from .models import usuario
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from rest_framework import generics, authentication, permissions
+from usuarios.serializers import Usuarioserializer
+from .serializers import CustomTokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-# Create your views here.
-class VistaTarea(viewsets.ModelViewSet):
+    
+class CreateUserView(generics.CreateAPIView):
     serializer_class = Usuarioserializer
-    queryset = usuario.objects.all()
+        
+class RetreiveUpdateUserView(generics.RetrieveUpdateAPIView):
+    serializer_class = Usuarioserializer
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     
+    def get_object(self):
+        return self.request.user
     
+#Serializador del tokenJWT
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
    
