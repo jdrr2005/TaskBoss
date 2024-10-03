@@ -145,3 +145,7 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Cambia el usuario para usar el modelo propio
+AUTH_USER_MODEL = 'usuarios.CustomUser'
+
+
