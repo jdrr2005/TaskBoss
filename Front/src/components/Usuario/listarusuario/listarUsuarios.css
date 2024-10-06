@@ -1,0 +1,37 @@
+.listar-usuarios-container {
+    display: flex; /* Utiliza flex para alinear la barra lateral y el contenido */
+}
+
+.usuarios-content {
+    flex: 1; /* Ocupa el espacio restante */
+    padding: 20px; /* Espaciado interno */
+}
+
+.usuarios-table {
+    width: 100%; /* Ocupa toda la anchura */
+    border-collapse: collapse; /* Colapsa bordes */
+}
+
+.usuarios-table th, .usuarios-table td {
+    padding: 10px; /* Espaciado interno */
+    text-align: left; /* Alineación del texto */
+    border-bottom: 1px solid #ddd; /* Línea divisoria entre filas */
+}
+
+.usuarios-table th {
+    background-color: #007bff; /* Color de fondo azul para el encabezado */
+    color: white; /* Color de texto blanco para el encabezado */
+}
+
+.edit-button, .delete-button {
+    margin-right: 10px; /* Espaciado entre los botones */
+    border: none; /* Sin borde */
+    background: none; /* Sin fondo */
+    cursor: pointer; /* Cursor de mano */
+    color: #007bff; /* Color de texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.edit-button:hover, .delete-button:hover {
+    text-decoration: none; /* Asegúrate de que no se subrayen al pasar el mouse */
+}
