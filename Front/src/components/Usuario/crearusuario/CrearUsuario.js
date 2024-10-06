@@ -7,6 +7,7 @@ const CrearUsuario = () => {
     const [apellido, setApellido] = useState('');
     const [correo, setCorreo] = useState('');
     const [contrasena, setContrasena] = useState('');
+    const [rol, setRol] = useState('Empleado');
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const handleSubmit = (e) => {
@@ -17,6 +18,7 @@ const CrearUsuario = () => {
         setApellido('');
         setCorreo('');
         setContrasena('');
+        setRol('Empleado'); 
     };
 
     const handleCloseModal = () => {
@@ -58,6 +60,15 @@ const CrearUsuario = () => {
                             onChange={(e) => setContrasena(e.target.value)} 
                             required 
                         />
+                        <label>Rol:</label>
+                        <select 
+                            value={rol} 
+                            onChange={(e) => setRol(e.target.value)} 
+                            required
+                        >
+                            <option value="Empleado">Empleado</option>
+                            <option value="Jefe">Jefe</option>
+                        </select>
                         <button type="submit">Crear Usuario</button>
                     </form>
                 </div>

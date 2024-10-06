@@ -7,15 +7,15 @@ import './listarUsuarios.css';
 
 const ListarUsuarios = () => {
     const [usuarios, setUsuarios] = useState([
-        { nombre: 'Juan', apellido: 'Pérez', correo: 'juan.perez@example.com' },
-        { nombre: 'Ana', apellido: 'García', correo: 'ana.garcia@example.com' },
-        { nombre: 'Sebastian', apellido: 'Pineda', correo: 'spr@example.com' }
+        { nombre: 'Juan', apellido: 'Pérez', correo: 'juan.perez@example.com', rol: 'Jefe' }, 
+        { nombre: 'Ana', apellido: 'García', correo: 'ana.garcia@example.com', rol: 'Jefe' },
+        { nombre: 'Sebastian', apellido: 'Pineda', correo: 'spr@example.com', rol: 'Empleado' }
     ]);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
     const [mensaje, setMensaje] = useState('');
-    const [mostrarModal, setMostrarModal] = useState(false);
-    const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
-    const [usuarioAEliminar, setUsuarioAEliminar] = useState(null);
+    const [mostrarModal, setMostrarModal] = useState(false); 
+    const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false); 
+    const [usuarioAEliminar, setUsuarioAEliminar] = useState(null); 
 
     const handleActualizar = (usuarioActualizado) => {
         setUsuarios((prevUsuarios) =>
@@ -23,9 +23,9 @@ const ListarUsuarios = () => {
                 usuario.nombre === usuarioSeleccionado.nombre ? usuarioActualizado : usuario
             )
         );
-        setMensaje('Usuario actualizado con éxito.');
-        setUsuarioSeleccionado(null);
-        setMostrarModal(true);
+        setMensaje('Usuario actualizado con éxito.'); 
+        setUsuarioSeleccionado(null); 
+        setMostrarModal(true); 
     };
 
     const handleEliminar = () => {
@@ -33,8 +33,8 @@ const ListarUsuarios = () => {
             prevUsuarios.filter((usuario) => usuario.nombre !== usuarioAEliminar.nombre)
         );
         setMostrarModalEliminar(false);
-        setMensaje('Usuario eliminado con éxito.');
-        setMostrarModal(true);
+        setMensaje('Usuario eliminado con éxito.'); 
+        setMostrarModal(true); 
     };
 
     const handleCerrarModal = () => {
@@ -43,12 +43,12 @@ const ListarUsuarios = () => {
     };
 
     const handleCancelarEliminar = () => {
-        setMostrarModalEliminar(false); 
+        setMostrarModalEliminar(false);
     };
 
     return (
         <div className="listarusuariocont">
-            <Sidebar /> 
+            <Sidebar />
             <div className="usuariocont">
                 {mostrarModal && <Modal mensaje={mensaje} onCerrar={handleCerrarModal} />}
                 {mostrarModalEliminar && 
@@ -72,6 +72,7 @@ const ListarUsuarios = () => {
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>Correo</th>
+                                    <th>Rol</th> 
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -81,18 +82,19 @@ const ListarUsuarios = () => {
                                         <td>{usuario.nombre}</td>
                                         <td>{usuario.apellido}</td>
                                         <td>{usuario.correo}</td>
+                                        <td>{usuario.rol}</td> 
                                         <td>
                                             <button 
                                                 className="botoneditar" 
-                                                onClick={() => setUsuarioSeleccionado(usuario)}
+                                                onClick={() => setUsuarioSeleccionado(usuario)} 
                                             >
                                                 ✏️ Editar
                                             </button>
                                             <button 
                                                 className="botoneliminar" 
                                                 onClick={() => { 
-                                                    setUsuarioAEliminar(usuario);
-                                                    setMostrarModalEliminar(true);
+                                                    setUsuarioAEliminar(usuario); 
+                                                    setMostrarModalEliminar(true); 
                                                 }}
                                             >
                                                 🗑️ Borrar

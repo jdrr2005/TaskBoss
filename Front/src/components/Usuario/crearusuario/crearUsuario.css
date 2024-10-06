@@ -103,3 +103,13 @@
     text-decoration: none;
     cursor: pointer;
 }
+
+
+.cajacrearusuario select {
+    padding: 8px; 
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
