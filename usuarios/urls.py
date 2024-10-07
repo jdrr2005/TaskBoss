@@ -3,8 +3,9 @@ from rest_framework_simplejwt.views import TokenRefreshView
 from usuarios import views
 
 urlpatterns = [
+    path('create-super/', views.CreateSuperUserView.as_view(), name='create-superuser'),  # Endpoint para crear superusuario
     path('create/', views.CreateUserView.as_view()),
-    path('modificarActulizar/', views.RetreiveUpdateUserView.as_view()),
+    path('UpdateModifyDestroy/', views.RetreiveUpdateUserView.as_view()),
     path('token/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

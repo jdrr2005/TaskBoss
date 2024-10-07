@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from usuarios.models import CustomUser
 
 class Task(models.Model):
     PRIORITY_CHOICES = [
@@ -20,8 +21,8 @@ class Task(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Pendiente')  # Estado (Pendiente, En Progreso, Completada)
     created_at = models.DateTimeField(default=timezone.now)  # Fecha de creación
     deadline = models.DateTimeField(null=True, blank=True)  # Fecha límite (opcional)
-    assigned_to = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='tasks_assigned_to')  # FK empleado
-    assigned_by = models.ForeignKey('CustomUser', on_delete=models.CASCADE, related_name='tasks_assigned_by')  # FK jefe
+    assigned_to = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_to')  # FK empleado
+    assigned_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_by')  # FK jefe
     points = models.PositiveIntegerField(default=0)  # Puntos obtenidos por la tarea completada
 
     def __str__(self):
