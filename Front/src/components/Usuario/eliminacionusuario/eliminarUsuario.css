@@ -4,11 +4,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Asegúrate de que el modal esté encima de otros elementos */
+    z-index: 1000;
 }
 
 .contenedoreliminar {
@@ -16,12 +16,12 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center; /* Centra el texto */
-    width: 300px; /* Ancho fijo para una miniventana */
+    text-align: center;
+    width: 300px;
 }
 
 .contbotonel {
-    margin-top: 20px; /* Espacio entre el texto y los botones */
+    margin-top: 20px;
 }
 
 .botonelim {
@@ -29,15 +29,15 @@
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
-    margin: 0 10px; /* Espacio entre botones */
+    margin: 0 10px;
 }
 
 .si {
-    background-color: #f44336; /* Rojo para confirmar eliminación */
+    background-color: #f44336;
     color: white;
 }
 
 .no {
-    background-color: #2196F3; /* Azul para cancelar */
+    background-color: #2196F3;
     color: white;
 }
