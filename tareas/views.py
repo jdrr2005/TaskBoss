@@ -17,3 +17,13 @@ class detailTask(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = taskSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
+    
+# Listar tareas por creador (JEFE)
+class ListTaskByBoss(generics.ListAPIView):
+    serializer_class = taskSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(assigned_by = user)
