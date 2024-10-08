@@ -12,6 +12,9 @@ class Usuarioserializer(serializers.ModelSerializer):
     def create(self, validate_data):
         return CustomUser.objects.create_user(**validate_data)
     
+    def createSuper(self, validate_data):
+        return CustomUser.objects.create_superuser(**validate_data)
+    
     def update(self, instance, validated_data):
         password = validated_data.pop('contrasena', None)
         user = super().update(instance, validated_data)
