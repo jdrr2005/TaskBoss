@@ -5,6 +5,7 @@ import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia
 import Insignias from './components/Insignia/principal/Insignia';
 import Login from './components/Logeo/Login';
 import PrinJefe from './components/Prin_jefe/prinjefe';
+import Progreso from './components/Progreso/Progreso';
 import CrearTarea from './components/Tarea/creartarea/CrearTarea';
 import ListarTareas from './components/Tarea/listartarea/ListarTarea';
 import Tareas from './components/Tarea/principaltarea/Tarea';
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="/insignias" element={<Insignias/>} />
                 <Route path="/crear-insignia" element={<CrearInsignia/>}/>
                 <Route path="/listar-insignias" element={<ListarInsignias/>}/>
+                <Route path="/progreso" element={<Progreso/>}/>
             </Routes>
         </Router>
     );
