@@ -8,8 +8,8 @@ const api = {
         return axios.post(`${urlApi}token/`, {
             email,
             password
-        })
+        });
     }
 
-}
+};
 export default api;
