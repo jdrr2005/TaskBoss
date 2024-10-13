@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { isAuthenticated } from './services/authService';
 import CrearInsignia from './components/Insignia/crearinsignia/CrearInsignia';
 import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia';
 import Insignias from './components/Insignia/principal/Insignia';
@@ -12,6 +13,7 @@ import Tareas from './components/Tarea/principaltarea/Tarea';
 import CrearUsuario from './components/Usuario/crearusuario/CrearUsuario';
 import ListarUsuario from './components/Usuario/listarusuario/ListarUsuarios';
 import Usuario from './components/Usuario/principal/Usuario';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 
 const App = () => {
@@ -20,7 +22,7 @@ const App = () => {
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />
-                <PrivateRoute path="/prinjefe" element={<PrinJefe />} />
+                <Route path="/prinjefe" element={<PrinJefe />} />
                 <Route path="/usuarios" element={<Usuario />} />
                 <Route path="/crear-usuario" element={<CrearUsuario />} />
                 <Route path="/listar-usuario" element={<ListarUsuario />} />

@@ -3,7 +3,9 @@ from rest_framework import generics, authentication, permissions
 from usuarios.serializers import Usuarioserializer
 from .serializers import CustomTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework.permissions import AllowAny
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from usuarios.models import CustomUser
 
 # Crea usuarios normales    
 class CreateUserView(generics.CreateAPIView):
@@ -21,11 +23,12 @@ class CreateSuperUserView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.createSuper(self.request.data)
         
-        
-class RetreiveUpdateUserView(generics.RetrieveUpdateAPIView):
+ #Permite ver, modificar y borrar       
+class RetreiveUpdateUserView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = CustomUser.objects.all()
     serializer_class = Usuarioserializer
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
     
     def get_object(self):
         return self.request.user
