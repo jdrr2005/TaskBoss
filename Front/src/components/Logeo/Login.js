@@ -4,15 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import './login.css';
 import authService from "../../services/api";
 
-/*const Login = () => {
-    const navigate = useNavigate(); 
-
-    const handleLogin = () => {
-        //  lógica de autenticación
-        
-        navigate('/prinjefe');
-    };*/
-
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
