@@ -1,8 +1,52 @@
 import React, { useState } from 'react';
 import Sidebar from '../../Menu_funcion/Menufuncion';
+import { useNavigate } from 'react-router-dom';
 import './crearUsuario.css';
+import api from "../../../services/api"
 
-const CrearUsuario = () => {
+const Resgister = () => {
+    const [formData, setFormData] = useState({
+        nombre: '',
+        apellido: '',
+        email: '',
+        contrasena: '',
+        rol: ''
+    });
+    const [message, setMessage] = useState('');
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setMessage("Error: no se encontró un token de autenticación.");
+            return;
+        }
+
+        console.log("Token found:", token); // For debugging purposes        
+
+        api.register(formData.nombre, formData.apellido, formData.email, formData.contrasena, formData.rol, token)
+            .then(response => {
+                console.log("Registro exitoso:", response.data);
+                setMessage("Registro exitoso");
+                navigate('/crear-usuario');  // Redirigir a la página de login después de registrarse
+            })
+            .catch(error => {
+                console.log("Error en el registro:", error);
+                setMessage("Error al registrarse: " + (error.response?.data?.detail || "Error desconocido"));
+            });
+    };
+
+
+/*const CrearUsuario = () => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [correo, setCorreo] = useState('');
@@ -21,9 +65,7 @@ const CrearUsuario = () => {
         setRol('Empleado'); 
     };
 
-    const handleCloseModal = () => {
-        setIsModalVisible(false);
-    };
+ */
 
     return (
         <div className="crearusuariocontainer">
@@ -34,57 +76,48 @@ const CrearUsuario = () => {
                     <form onSubmit={handleSubmit}>
                         <label>Nombre:</label>
                         <input 
-                            type="text" 
-                            value={nombre} 
-                            onChange={(e) => setNombre(e.target.value)} 
+                            type="text"
+                            name='nombre'
+                            onChange={handleChange} 
                             required 
                         />
                         <label>Apellido:</label>
                         <input 
                             type="text" 
-                            value={apellido} 
-                            onChange={(e) => setApellido(e.target.value)} 
+                            name="apellido"
+                            onChange={handleChange} 
                             required 
                         />
                         <label>Correo:</label>
                         <input 
-                            type="email" 
-                            value={correo} 
-                            onChange={(e) => setCorreo(e.target.value)} 
+                            type='email'
+                            name= 'email'
+                            onChange={handleChange} 
                             required 
                         />
                         <label>Contraseña:</label>
                         <input 
                             type="password" 
-                            value={contrasena} 
-                            onChange={(e) => setContrasena(e.target.value)} 
+                            name = 'contrasena'
+                            onChange={handleChange} 
                             required 
                         />
                         <label>Rol:</label>
                         <select 
-                            value={rol} 
-                            onChange={(e) => setRol(e.target.value)} 
+                            name = 'rol'
+                            onChange={handleChange} 
                             required
                         >
                             <option value="Empleado">Empleado</option>
                             <option value="Jefe">Jefe</option>
                         </select>
                         <button type="submit">Crear Usuario</button>
+                        {message && <p>{message}</p>}
                     </form>
                 </div>
             </div>
-
-            {/* Ventana modal de confirmación */}
-            {isModalVisible && (
-                <div className="confirmacion">
-                    <div className="contenidocontendor">
-                        <span className="salida" onClick={handleCloseModal}>&times;</span>
-                        <h4>Usuario creado exitosamente</h4>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
 
-export default CrearUsuario;
+export default Resgister;

@@ -23,7 +23,7 @@ class CreateSuperUserView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.createSuper(self.request.data)
         
- #Permite ver, modificar y borrar       
+ #Permite ver, modificar y borrar usuarios por id
 class RetreiveUpdateUserView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = Usuarioserializer
@@ -33,6 +33,14 @@ class RetreiveUpdateUserView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return self.request.user
     
+#en lista usuarios que sean empleados
+class EmpeladoListView(generics.ListAPIView):
+    serializer_class = Usuarioserializer
+
+    def get_queryset(self):
+        return CustomUser.objects.filter(rol = 'Empleado')
+    
+
 #Serializador del tokenJWT
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer

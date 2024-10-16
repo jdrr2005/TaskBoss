@@ -1,27 +1,31 @@
 import React, { useState } from 'react';
+import api from '../../../services/api'
 import './editarUsuario.css';
 
 const EditarUsuario = ({ usuario, onActualizar, onCancelar }) => {
-    const [nombre, setNombre] = useState(usuario.nombre);
-    const [apellido, setApellido] = useState(usuario.apellido);
-    const [correo, setCorreo] = useState(usuario.correo);
-    const [rol, setRol] = useState(usuario.rol);
+    const [nombre, setNombre] = useState(usuario.nombre || '');
+    const [apellido, setApellido] = useState(usuario.apellido || '');
+    const [email, setCorreo] = useState(usuario.email || '');
+    const [rol, setRol] = useState(usuario.rol || 'Empleado');
     const [mensaje, setMensaje] = useState('');
 
-    const handleActualizar = () => {
-        onActualizar({ nombre, apellido, correo });
-        setMensaje('Usuario actualizado con éxito.');
 
-        setTimeout(() => {
-            setMensaje('');
-        }, 3000);
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Previene la recarga de la página
+        onActualizar({
+            ...usuario,
+            nombre,
+            apellido,
+            email,
+            rol
+        });
     };
 
     return (
         <div className="editarusuariocontenedor">
             <h3 style={{ textAlign: 'center' }}>Editar Usuario</h3>
             {mensaje && <p className="mensajeconfirmacion">{mensaje}</p>}
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label>Nombre:</label>
                     <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
@@ -32,7 +36,7 @@ const EditarUsuario = ({ usuario, onActualizar, onCancelar }) => {
                 </div>
                 <div>
                     <label>Correo:</label>
-                    <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} required />
+                    <input type="email" value={email} onChange={(e) => setCorreo(e.target.value)} required />
                 </div>
                 <div>
                     <label>Rol:</label>
@@ -42,8 +46,8 @@ const EditarUsuario = ({ usuario, onActualizar, onCancelar }) => {
                     </select>
                 </div>
                 <div className="contenedorboton">
-                    <button type="boton" onClick={handleActualizar}>Actualizar</button>
-                    <button type="boton" onClick={onCancelar}>Cancelar</button>
+                    <button type="submit">Actualizar</button>
+                    <button type="button" onClick={onCancelar}>Cancelar</button>
                 </div>
             </form>
         </div>

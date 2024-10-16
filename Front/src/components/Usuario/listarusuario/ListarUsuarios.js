@@ -1,41 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../../services/api'
 import Modal from '../../Confirmacion/ConfigMensaje';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import EditarUsuario from '../editarusuario/EditarUsuario';
 import ConfirmacionEliminacion from '../eliminacionusuario/EliminarUsuario';
 import './listarUsuarios.css';
 
-const ListarUsuarios = () => {
-    const [usuarios, setUsuarios] = useState([
-        { nombre: 'Juan', apellido: 'Pérez', correo: 'juan.perez@example.com', rol: 'Jefe' }, 
-        { nombre: 'Ana', apellido: 'García', correo: 'ana.garcia@example.com', rol: 'Jefe' },
-        { nombre: 'Sebastian', apellido: 'Pineda', correo: 'spr@example.com', rol: 'Empleado' }
-    ]);
+const   ListarUsuarios = () => {
+    const [usuarios, setUsuarios] = useState([]);
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
     const [mensaje, setMensaje] = useState('');
-    const [mostrarModal, setMostrarModal] = useState(false); 
-    const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false); 
-    const [usuarioAEliminar, setUsuarioAEliminar] = useState(null); 
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
+    const [usuarioAEliminar, setUsuarioAEliminar] = useState(null);
+    const token = localStorage.getItem('token'); // Asegúrate de tener el token en el localStorage
+
+    useEffect(() => {
+        if (token) {
+            api.userList(token)
+                .then((response) => {
+                    setUsuarios(response.data); // Asume que la respuesta es un array de usuarios
+                })
+                .catch((error) => {
+                    console.error("Error al listar los usuarios:", error);
+                });
+        }
+    }, [token]);
 
     const handleActualizar = (usuarioActualizado) => {
-        setUsuarios((prevUsuarios) =>
-            prevUsuarios.map((usuario) =>
-                usuario.nombre === usuarioSeleccionado.nombre ? usuarioActualizado : usuario
-            )
-        );
-        setMensaje('Usuario actualizado con éxito.'); 
-        setUsuarioSeleccionado(null); 
-        setMostrarModal(true); 
+        if (token && usuarioActualizado.id) {
+            api.userUpdate(usuarioActualizado.id, usuarioActualizado, token) // Llamada a la API
+                .then((response) => {
+                    setUsuarios((prevUsuarios) =>
+                        prevUsuarios.map((usuario) =>
+                            usuario.id === usuarioActualizado.id ? response.data : usuario // Actualiza el estado con la respuesta de la API
+                        )
+                    );
+                    setMensaje('Usuario actualizado con éxito.');
+                    setUsuarioSeleccionado(null);
+                    setMostrarModal(true);
+                })
+                .catch((error) => {
+                    console.error("Error al actualizar el usuario:", error);
+                    setMensaje('Error al actualizar el usuario.');
+                    setMostrarModal(true);
+                });
+        }
     };
+    
 
     const handleEliminar = () => {
-        setUsuarios((prevUsuarios) => 
-            prevUsuarios.filter((usuario) => usuario.nombre !== usuarioAEliminar.nombre)
-        );
-        setMostrarModalEliminar(false);
-        setMensaje('Usuario eliminado con éxito.'); 
-        setMostrarModal(true); 
+        if (token && usuarioAEliminar) {
+            api.userDelete(usuarioAEliminar.id, token) // Llamada a la API para eliminar el usuario
+                .then(() => {
+                    setUsuarios((prevUsuarios) =>
+                        prevUsuarios.filter((usuario) => usuario.id !== usuarioAEliminar.id) // Elimina el usuario del estado
+                    );
+                    setMostrarModalEliminar(false);
+                    setMensaje('Usuario eliminado con éxito.');
+                    setMostrarModal(true);
+                })
+                .catch((error) => {
+                    console.error("Error al eliminar el usuario:", error);
+                    setMensaje('Error al eliminar el usuario.');
+                    setMostrarModal(true);
+                });
+        }
     };
+
+    const handleEliminarUsuario = (usuario) => {
+        setUsuarioAEliminar(usuario);
+        setMostrarModalEliminar(true);
+    };
+    
+
 
     const handleCerrarModal = () => {
         setMostrarModal(false); 
@@ -44,6 +82,7 @@ const ListarUsuarios = () => {
 
     const handleCancelarEliminar = () => {
         setMostrarModalEliminar(false);
+        setUsuarioAEliminar(null); 
     };
 
     return (
@@ -81,7 +120,7 @@ const ListarUsuarios = () => {
                                     <tr key={index}>
                                         <td>{usuario.nombre}</td>
                                         <td>{usuario.apellido}</td>
-                                        <td>{usuario.correo}</td>
+                                        <td>{usuario.email}</td>
                                         <td>{usuario.rol}</td> 
                                         <td>
                                             <button 
@@ -92,10 +131,10 @@ const ListarUsuarios = () => {
                                             </button>
                                             <button 
                                                 className="botoneliminar" 
-                                                onClick={() => { 
+                                                onClick={() => handleEliminarUsuario(usuario)/*{ 
                                                     setUsuarioAEliminar(usuario); 
                                                     setMostrarModalEliminar(true); 
-                                                }}
+                                                }*/}
                                             >
                                                 🗑️ Borrar
                                             </button>

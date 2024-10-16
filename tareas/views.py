@@ -11,7 +11,7 @@ class createTask(generics.CreateAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
-# Ver, borrar y editar tareas 
+# Ver, borrar y editar tareas por id
 class detailTask(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = taskSerializer
