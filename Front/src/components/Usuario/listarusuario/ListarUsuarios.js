@@ -19,6 +19,7 @@ const   ListarUsuarios = () => {
         if (token) {
             api.userList(token)
                 .then((response) => {
+                    console.log(response.data);
                     setUsuarios(response.data); // Asume que la respuesta es un array de usuarios
                 })
                 .catch((error) => {
@@ -28,8 +29,17 @@ const   ListarUsuarios = () => {
     }, [token]);
 
     const handleActualizar = (usuarioActualizado) => {
+
+        // Clonamos el objeto para no modificar directamente el usuario
+        const datosActualizados = { ...usuarioActualizado };
+
+        // Si la contraseña está vacía, la eliminamos de los datos que se enviarán
+        if (!datosActualizados.contrasena) {
+            delete datosActualizados.contrasena;
+        }
+
         if (token && usuarioActualizado.id) {
-            api.userUpdate(usuarioActualizado.id, usuarioActualizado, token) // Llamada a la API
+            api.userUpdate(usuarioActualizado.id, datosActualizados, token) // Llamada a la API
                 .then((response) => {
                     setUsuarios((prevUsuarios) =>
                         prevUsuarios.map((usuario) =>
@@ -41,11 +51,17 @@ const   ListarUsuarios = () => {
                     setMostrarModal(true);
                 })
                 .catch((error) => {
-                    console.error("Error al actualizar el usuario:", error);
+                    if (error.response) {
+                        console.error("Error en la respuesta del servidor:", error.response.data);
+                    } else {
+                        console.error("Error en la solicitud:", error.message);
+                    }
                     setMensaje('Error al actualizar el usuario.');
                     setMostrarModal(true);
                 });
         }
+        setUsuarioSeleccionado(null); 
+        setMostrarModal(true);
     };
     
 
@@ -66,24 +82,25 @@ const   ListarUsuarios = () => {
                     setMostrarModal(true);
                 });
         }
+        setMostrarModalEliminar(false);
+        setMensaje('Usuario eliminado con éxito.'); 
+        setMostrarModal(true);
     };
 
     const handleEliminarUsuario = (usuario) => {
         setUsuarioAEliminar(usuario);
         setMostrarModalEliminar(true);
     };
-    
-
-
-    const handleCerrarModal = () => {
-        setMostrarModal(false); 
-        setMensaje(''); 
-    };
 
     const handleCancelarEliminar = () => {
         setMostrarModalEliminar(false);
-        setUsuarioAEliminar(null); 
+
     };
+
+    const handleCerrarModal = () => {
+        setMostrarModal(false);
+        setMensaje('');
+    }
 
     return (
         <div className="listarusuariocont">
@@ -131,10 +148,7 @@ const   ListarUsuarios = () => {
                                             </button>
                                             <button 
                                                 className="botoneliminar" 
-                                                onClick={() => handleEliminarUsuario(usuario)/*{ 
-                                                    setUsuarioAEliminar(usuario); 
-                                                    setMostrarModalEliminar(true); 
-                                                }*/}
+                                                onClick={() => handleEliminarUsuario(usuario)}
                                             >
                                                 🗑️ Borrar
                                             </button>

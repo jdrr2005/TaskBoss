@@ -55,11 +55,9 @@ const CrearTarea = () => {
                             required
                         >
                             <option value="">Seleccione</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
+                            <option value="Baja">Baja</option>
+                            <option value="Media">Media</option>
+                            <option value="Alta">Alta</option>
                         </select>
                         <label>Fecha Límite:</label>
                         <input 
