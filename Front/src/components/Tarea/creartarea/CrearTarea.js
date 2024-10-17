@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../../Menu_funcion/Menufuncion';
+import api from '../../../services/api'
 import './crearTarea.css';
 
 const CrearTarea = () => {
@@ -11,16 +12,32 @@ const CrearTarea = () => {
     const [puntos, setPuntos] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Tarea creada:', { titulo, descripcion, prioridad, fechaLimite, asignarA, puntos });
-        setIsModalVisible(true);
-        setTitulo('');
-        setDescripcion('');
-        setPrioridad('');
-        setFechaLimite('');
-        setAsignarA('');
-        setPuntos('');
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            console.log("Error: no se encontró un token de autenticación.");
+            return;
+        }
+
+        try {
+            const response = await api.taskRegister(
+                titulo, 
+                descripcion, 
+                prioridad, 
+                fechaLimite, 
+                asignarA, 
+                puntos, 
+                token
+            );
+
+            console.log("Tarea creada:", response.data);
+            setIsModalVisible(true); // Mostrar modal de confirmación
+
+        } catch (error) {
+            console.error("Error al crear la tarea:", error);
+        }
     };
 
     const handleCloseModal = () => {
