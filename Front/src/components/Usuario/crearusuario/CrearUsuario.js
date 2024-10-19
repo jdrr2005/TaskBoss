@@ -45,28 +45,6 @@ const Resgister = () => {
             });
     };
 
-
-/*const CrearUsuario = () => {
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [contrasena, setContrasena] = useState('');
-    const [rol, setRol] = useState('Empleado');
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Usuario creado:', { nombre, apellido, correo, contrasena });
-        setIsModalVisible(true);
-        setNombre('');
-        setApellido('');
-        setCorreo('');
-        setContrasena('');
-        setRol('Empleado'); 
-    };
-
- */
-
     return (
         <div className="crearusuariocontainer">
             <Sidebar />

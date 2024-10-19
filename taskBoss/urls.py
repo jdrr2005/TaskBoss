@@ -12,10 +12,10 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 # usuario normal
 """
-    "nombre": "Alfred",
-    "contrasena": "1234",
-    "email": "aldred@gmail.com",
-    "apellido": "Feid"
+    "email":"sebas@gmail.com",
+    "contrasena":"sebas123",
+    "nombre":"sebastian",
+    "apellido":"Jimenez"
 """
 
 urlpatterns = [

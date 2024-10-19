@@ -11,7 +11,7 @@ const EditarUsuario = ({ usuario, onActualizar, onCancelar }) => {
 
 
     const handleSubmit = (e) => {
-        e.preventDefault(); // Previene la recarga de la página
+        e.preventDefault();
         onActualizar({
             ...usuario,
             nombre,

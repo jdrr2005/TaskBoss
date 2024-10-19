@@ -4,7 +4,7 @@ from rest_framework import serializers
 class taskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ["title", "description", "priority", "status", "deadline", "assigned_to", "assigned_by", "points"]
+        fields = ['id',"title", "description", "priority", "status", "deadline", "assigned_to", "assigned_by", "points"]
     
     def crear(self, validated_data):
         return Task.objects.create(**validated_data)
