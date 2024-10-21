@@ -23,9 +23,11 @@ const Login = () => {
         e.preventDefault();
         authService.login(formData.email, formData.password)
             .then(response => {
-                console.log("Respuesta de la API:", response);
+                console.log("Respuesta de la API:", response.id);
                 if (response.data && response.data.access) {
                     localStorage.setItem('token', response.data.access);
+                    const id = response.data.id;
+                    sessionStorage.setItem("id", id);
                     navigate('/prinjefe');
                 } else {
                     setMessage("Error: Token no encontrado en la respuesta.");

@@ -52,6 +52,8 @@ const api = {
     },
 
     // apis para tareas ---------------------------------------------------------------------------------
+    
+    //Registro de tareas
     taskRegister: (title, description, priority, deadline, assigned_to, assigned_by, points, token) => {
         return axios.post(`${urlApiTask}create/`, {
             title,
@@ -64,6 +66,15 @@ const api = {
         }, {
             headers: {
                 'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
+
+    //lista de tareas por usuario 
+    taskList: (token) => {
+        return axios.get(`${urlApi}taskList/`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
         });
     },

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import api from "../../../services/api"
 import Modal from '../../Confirmacion/ConfigMensaje';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import EditarTarea from '../editartarea/EditarTarea';
@@ -6,35 +7,43 @@ import ConfirmacionEliminacion from '../eliminartarea/EliminarTarea';
 import './listarTarea.css';
 
 const ListarTareas = () => {
-    const [tareas, setTareas] = useState([
-        {
-            titulo: 'Tarea 1',
-            descripcion: 'Descripción de la tarea 1',
-            prioridad: '5',
-            fechaLimite: '2024-10-10',
-            responsable: 'Juan Pérez'
-        },
-        {
-            titulo: 'Tarea 2',
-            descripcion: 'Descripción de la tarea 2',
-            prioridad: '3',
-            fechaLimite: '2024-10-12',
-            responsable: 'María López'
-        },
-        {
-            titulo: 'Tarea 3',
-            descripcion: 'Descripción de la tarea 3',
-            prioridad: '1',
-            fechaLimite: '2024-10-15',
-            responsable: 'Carlos García'
-        }
-    ]);
-    
+    const [tareas, setTareas] = useState([]);
+    const [usuarioId, setusarioId] = useState('');
     const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
     const [mensaje, setMensaje] = useState('');
     const [mostrarModal, setMostrarModal] = useState(false);
     const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
     const [tareaAEliminar, setTareaAEliminar] = useState(null);
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        const getIdUser = () => {
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                console.log(decodedToken);
+                const userId = decodedToken.user_id; // Asegúrate de que 'id' es el campo correcto
+                setusarioId(userId);
+            }
+        };
+
+        getIdUser(); // Llama a getIdUser cuando se monte el componente
+    }, []);
+
+    useEffect(() => {
+        const fletchTareas = async () => {
+            try{
+                const response = await api.taskList(token);
+                const tareaPorUsaurioAsignado = response.data.filter(task => task.assigned_to === usuarioId);
+                setTareas(tareaPorUsaurioAsignado);
+            }catch (error) {
+                console.error("Error al listar tareas:", error);
+            }
+        }
+
+        if (token && usuarioId) {
+            fletchTareas(); // Llama a la función para obtener las tareas
+        }
+    }, [token]);
 
     const handleActualizar = (tareaActualizada) => {
         setTareas((prevTareas) =>
