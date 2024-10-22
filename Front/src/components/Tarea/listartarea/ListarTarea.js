@@ -9,6 +9,7 @@ import './listarTarea.css';
 const ListarTareas = () => {
     const [tareas, setTareas] = useState([]);
     const [usuarioId, setusarioId] = useState('');
+    const [nombreAsignado, setNombreAsignado] = useState('');
     const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
     const [mensaje, setMensaje] = useState('');
     const [mostrarModal, setMostrarModal] = useState(false);
@@ -33,7 +34,7 @@ const ListarTareas = () => {
         const fletchTareas = async () => {
             try{
                 const response = await api.taskList(token);
-                const tareaPorUsaurioAsignado = response.data.filter(task => task.assigned_to === usuarioId);
+                const tareaPorUsaurioAsignado = response.data.filter(task => task.assigned_by === usuarioId);
                 setTareas(tareaPorUsaurioAsignado);
             }catch (error) {
                 console.error("Error al listar tareas:", error);
@@ -45,7 +46,25 @@ const ListarTareas = () => {
         }
     }, [token]);
 
-    const handleActualizar = (tareaActualizada) => {
+    useEffect(() => {
+        const nombreUsuarioAsignado = async () => {
+            try{
+                const response = await api.userList(token);
+                const usuarioAsignado = response.data.find(user => user.user_id === task.assigned_to);
+                if (usuarioAsignado) {
+                    setNombreAsignado(`${usuarioAsignado.nombre} ${usuarioAsignado.apellido}`);
+                } else {
+                    console.error("No se encontró el usuario asignado.");
+                }
+            }catch (error){
+                console.error("Error al encontrar el nombre de la persona asignada:", error);
+            }
+        }
+
+        nombreUsuarioAsignado();
+    }, [token, task.assigned_to]);
+
+   /* const handleActualizar = (tareaActualizada) => {
         setTareas((prevTareas) =>
             prevTareas.map((tarea) =>
                 tarea.titulo === tareaSeleccionada.titulo ? tareaActualizada : tarea
@@ -63,7 +82,7 @@ const ListarTareas = () => {
         setMostrarModalEliminar(false);
         setMensaje('Tarea eliminada con éxito.');
         setMostrarModal(true);
-    };
+    };*/
 
     const handleCerrarModal = () => {
         setMostrarModal(false);
@@ -108,11 +127,11 @@ const ListarTareas = () => {
                             <tbody>
                                 {tareas.map((tarea, index) => (
                                     <tr key={index}>
-                                        <td>{tarea.titulo}</td>
-                                        <td>{tarea.descripcion}</td>
-                                        <td>{tarea.prioridad}</td>
-                                        <td>{tarea.fechaLimite}</td>
-                                        <td>{tarea.responsable}</td>
+                                        <td>{tarea.title}</td>
+                                        <td>{tarea.description}</td>
+                                        <td>{tarea.priority}</td>
+                                        <td>{tarea.deadline}</td>
+                                        <td>{nombreAsignado}</td>
                                         <td>
                                             <button
                                                 className="edit-button"
