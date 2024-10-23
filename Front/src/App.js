@@ -13,6 +13,7 @@ import Progreso from './components/Progreso/Progreso';
 import CrearTarea from './components/Tarea/creartarea/CrearTarea';
 import ListarTareas from './components/Tarea/listartarea/ListarTarea';
 import Tareas from './components/Tarea/principaltarea/Tarea';
+import TareaEmpleado from './components/TareaEmpleado/tareaEmpleado';
 import CrearUsuario from './components/Usuario/crearusuario/CrearUsuario';
 import ListarUsuario from './components/Usuario/listarusuario/ListarUsuarios';
 import Usuario from './components/Usuario/principal/Usuario';
@@ -38,6 +39,7 @@ const App = () => {
                 <Route path="/prinempleado" element={<PrinEmpleado/>}/>
                 <Route path="/perfilempleado" element={<PerfilEmpleado/>}/>
                 <Route path="/insigniaempleado" element={<InsigniaEmpleado/>}/>
+                <Route path="/tareaempleado" element={<TareaEmpleado/>}/>
             </Routes>
         </Router>
     );
