@@ -3,7 +3,11 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 import CrearInsignia from './components/Insignia/crearinsignia/CrearInsignia';
 import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia';
 import Insignias from './components/Insignia/principal/Insignia';
+import InsigniaEmpleado from './components/InsigniaEmpleado/Insigniaempleado';
 import Login from './components/Logeo/Login';
+import PerfilEmpleado from './components/PerfilEmpleado/perfilempleado';
+import PerfilJefe from './components/PerfilJefe/Perfiljefe';
+import PrinEmpleado from './components/Prin_Empleado/prinempleado';
 import PrinJefe from './components/Prin_jefe/prinjefe';
 import Progreso from './components/Progreso/Progreso';
 import CrearTarea from './components/Tarea/creartarea/CrearTarea';
@@ -30,6 +34,10 @@ const App = () => {
                 <Route path="/crear-insignia" element={<CrearInsignia/>}/>
                 <Route path="/listar-insignias" element={<ListarInsignias/>}/>
                 <Route path="/progreso" element={<Progreso/>}/>
+                <Route path="/perfiljefe" element={<PerfilJefe/>}/>
+                <Route path="/prinempleado" element={<PrinEmpleado/>}/>
+                <Route path="/perfilempleado" element={<PerfilEmpleado/>}/>
+                <Route path="/insigniaempleado" element={<InsigniaEmpleado/>}/>
             </Routes>
         </Router>
     );
