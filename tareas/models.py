@@ -20,7 +20,7 @@ class Task(models.Model):
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Media')  # Prioridad (Baja, Media, Alta)
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Pendiente')  # Estado (Pendiente, En Progreso, Completada)
     created_at = models.DateTimeField(default=timezone.now)  # Fecha de creación
-    deadline = models.DateTimeField(null=True, blank=True)  # Fecha límite (opcional)
+    deadline = models.DateField(null=True, blank=True)  # Fecha límite (opcional)
     assigned_to = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_to')  # FK empleado
     assigned_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_by')  # FK jefe
     points = models.PositiveIntegerField(default=0)  # Puntos obtenidos por la tarea completada

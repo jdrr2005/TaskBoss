@@ -26,8 +26,7 @@ const Login = () => {
                 console.log("Respuesta de la API:", response.id);
                 if (response.data && response.data.access) {
                     localStorage.setItem('token', response.data.access);
-                    const id = response.data.id;
-                    sessionStorage.setItem("id", id);
+                    localStorage.setItem('refresh', response.data.refresh);
                     navigate('/prinjefe');
                 } else {
                     setMessage("Error: Token no encontrado en la respuesta.");

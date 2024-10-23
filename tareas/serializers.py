@@ -9,16 +9,16 @@ class taskSerializer(serializers.ModelSerializer):
     def crear(self, validated_data):
         return Task.objects.create(**validated_data)
     
-    def update(self, validated_data):
-        Task.title = validated_data.get('title', Task.title)
-        Task.description = validated_data.get('description', Task.description)
-        Task.priority = validated_data.get('priority', Task.priority)
-        Task.status = validated_data.get('status', Task.status)
-        Task.deadline = validated_data.get('deadline', Task.deadline)
-        Task.assigned_to = validated_data.get('assigned_to', Task.assigned_to)
-        Task.assigned_by = validated_data.get('assigned_by', Task.assigned_by)
-        Task.points = validated_data.get('points', Task.points)
-        
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.priority = validated_data.get('priority', instance.priority)
+        instance.status = validated_data.get('status', instance.status)
+        instance.deadline = validated_data.get('deadline', instance.deadline)
+        instance.assigned_to = validated_data.get('assigned_to', instance.assigned_to)
+        instance.assigned_by = validated_data.get('assigned_by', instance.assigned_by)
+        instance.points = validated_data.get('points', instance.points)
+
         # Guarda la instancia actualizada
-        Task.save()
-        return Task
+        instance.save()
+        return instance
