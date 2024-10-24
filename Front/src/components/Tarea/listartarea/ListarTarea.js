@@ -99,14 +99,30 @@ const ListarTareas = () => {
         }
     };
 
-    /* const handleEliminar = () => {
-        setTareas((prevTareas) =>
-            prevTareas.filter((tarea) => tarea.titulo !== tareaAEliminar.titulo)
-        );
+    const handleEliminar = async () => {
+        if(token){
+            try{
+                const response = await api.taskDelete(tareaAEliminar.id, token)
+
+                setTareas((prevTareas) =>
+                    prevTareas.filter((tarea) => tarea.id !== tareaAEliminar.id)
+                );
+                setMensaje('Tarea actualizada con éxito.');
+            } catch (error){
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor:", error.response.data);
+                } else {
+                    console.error("Error en la solicitud:", error.message);
+                }
+                setMensaje('Error al actualizar la tarea.');
+            }
+           
+        }
+        
         setMostrarModalEliminar(false);
         setMensaje('Tarea eliminada con éxito.');
         setMostrarModal(true);
-    };*/
+    };
 
     const handleCerrarModal = () => {
         setMostrarModal(false);
@@ -124,7 +140,7 @@ const ListarTareas = () => {
                 {mostrarModal && <Modal mensaje={mensaje} onCerrar={handleCerrarModal} />}
                 {mostrarModalEliminar && (
                     <ConfirmacionEliminacion
-                        //onEliminar={handleEliminar}
+                        onEliminar={handleEliminar}
                         onCancelar={handleCancelarEliminar}
                     />
                 )}

@@ -1,13 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import api from '../../../services/api';
 import './editarTarea.css';
 
 const EditarTarea = ({ tarea, onActualizar, onCancelar }) => {
     const [titulo, setTitulo] = useState(tarea.titulo || '');
+    const [NombreAsignado, setNombreAsignado] = useState('Cargando...');
     const [descripcion, setDescripcion] = useState(tarea.descripcion || '');
     const [prioridad, setPrioridad] = useState(tarea.prioridad || 'Baja');
     const [fechaLimite, setFechaLimite] = useState(tarea.fechaLimite || '');
     const [responsable, setResponsable] = useState(tarea.responsable || '');
     const [mensaje, setMensaje] = useState('');
+    const token = localStorage.getItem('token');
+
+    useEffect(() => {
+        console.log(tarea.assigned_to);
+        
+            const nombreUsuarioAsignado = async () => {
+                try {
+                    const response = await api.userList(token);
+                    const usuarioAsignado = response.data.find(user => user.user_id || user.id === tarea.assigned_to);
+                    if (usuarioAsignado) {
+                        setNombreAsignado(`${usuarioAsignado.nombre} ${usuarioAsignado.apellido}`);
+                    } else {
+                        setNombreAsignado("Usuario no encontrado");
+                    }
+                } catch (error) {
+                    setNombreAsignado("Error al cargar usuario");
+                    console.error("Error al encontrar el nombre de la persona asignada:", error);
+                }
+            };
+            nombreUsuarioAsignado();
+        
+    }, [token, tarea.assigned_to]);
 
     useEffect(() => {
         if (tarea) {
@@ -15,7 +39,7 @@ const EditarTarea = ({ tarea, onActualizar, onCancelar }) => {
             setDescripcion(tarea.description || '');
             setPrioridad(tarea.priority || 'Baja');
             setFechaLimite(tarea.deadline || '');
-            setResponsable(tarea.assigned_to || '');
+            setResponsable(NombreAsignado || '');
         }
     }, [tarea]); // El useEffect se dispara cuando la tarea cambia
 
@@ -23,11 +47,11 @@ const EditarTarea = ({ tarea, onActualizar, onCancelar }) => {
         e.preventDefault();
         onActualizar({ 
             ...tarea,
-            titulo, 
-            descripcion, 
-            prioridad, 
-            fechaLimite, 
-            responsable 
+            title: titulo, 
+            description: descripcion, 
+            priority: prioridad, 
+            deadline: fechaLimite, 
+            assigned_to: responsable 
         });
         setMensaje('Tarea actualizada con éxito.');
         setTimeout(() => {
