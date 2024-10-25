@@ -1,20 +1,41 @@
 import React, { useState } from 'react';
+import api from '../../../services/api';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import './crearInsignia.css';
 
 const CrearInsignia = () => {
-    const [nombre, setNombre] = useState('');
-    const [descripcion, setDescripcion] = useState('');
-    const [puntos, setPuntos] = useState('');
+    const [name, setNombre] = useState('');
+    const [description, setDescripcion] = useState('');
+    const [points_required, setPuntos] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Insignia creada:', { nombre, descripcion, puntos }); 
-        setIsModalVisible(true);
-        setNombre('');
+        const token = localStorage.getItem('token');
+
+        if(token){
+
+            try {
+                const response = await api.badgeRegister(
+                    name, 
+                    description, 
+                    points_required,
+                    token
+                );
+                console.log("tarea creada: " + response.data);
+                setIsModalVisible(true);
+        
+            } catch (error) {
+                console.log('error al crear insignia ' + error)
+            } 
+        }else{
+            console.log("Error: no se encontró un token de autenticación.");
+            return;
+        }
+        
+        /*setNombre('');
         setDescripcion('');
-        setPuntos('');
+        setPuntos('');*/
     };
 
     const handleCloseModal = () => {
@@ -31,21 +52,21 @@ const CrearInsignia = () => {
                         <label>Nombre:</label>
                         <input 
                             type="text" 
-                            value={nombre} 
+                            value={name} 
                             onChange={(e) => setNombre(e.target.value)} 
                             required 
                         />
                         <label>Descripción:</label>
                         <input 
                             type="text" 
-                            value={descripcion} 
+                            value={description} 
                             onChange={(e) => setDescripcion(e.target.value)} 
                             required 
                         />
                         <label>Puntos:</label>
                         <input 
                             type="number" 
-                            value={puntos} 
+                            value={points_required} 
                             onChange={(e) => setPuntos(e.target.value)} 
                             required 
                         />

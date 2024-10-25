@@ -18,6 +18,13 @@ class detailBadge(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
     
+# listar insignias
+class listBadge(generics.ListAPIView):
+    serializer_class = badgeSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = Badge.objects.all()
+    
 #--------------------------------------------------------
 #Crear usuario-insignias
 class createUserBadge(generics.CreateAPIView):

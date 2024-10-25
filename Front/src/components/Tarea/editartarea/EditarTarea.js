@@ -51,7 +51,7 @@ const EditarTarea = ({ tarea, onActualizar, onCancelar }) => {
             description: descripcion, 
             priority: prioridad, 
             deadline: fechaLimite, 
-            assigned_to: responsable 
+            //assigned_to: responsable 
         });
         setMensaje('Tarea actualizada con éxito.');
         setTimeout(() => {

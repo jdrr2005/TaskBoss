@@ -1,34 +1,78 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../Confirmacion/ConfigMensaje';
+import api from '../../../services/api';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import EditarInsignia from '../editarinsignia/EditarInsignia';
 import ConfirmacionEliminacion from '../eliminarinsignia/EliminarInsignia';
 import './listarInsignia.css';
 
 const ListarInsignias = () => {
-    const [insignias, setInsignias] = useState([
-        { id: 1, nombre: 'Insignia 1', descripcion: 'Descripción de Insignia 1', puntos: 100 },
-        { id: 2, nombre: 'Insignia 2', descripcion: 'Descripción de Insignia 2', puntos: 200 },
-        { id: 3, nombre: 'Insignia 3', descripcion: 'Descripción de Insignia 3', puntos: 150 }
-    ]);
+    const [insignias, setInsignias] = useState([]);
     const [insigniaSeleccionada, setInsigniaSeleccionada] = useState(null);
     const [mensaje, setMensaje] = useState(''); 
     const [mostrarModal, setMostrarModal] = useState(false); 
     const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
     const [insigniaAEliminar, setInsigniaAEliminar] = useState(null);
+    const token = localStorage.getItem('token');
 
-    const handleActualizar = (insigniaActualizada) => {
-        setInsignias((prevInsignias) =>
-            prevInsignias.map((insignia) =>
-                insignia.id === insigniaSeleccionada.id ? insigniaActualizada : insignia
-            )
-        );
-        setMensaje('Insignia actualizada con éxito.');
-        setInsigniaSeleccionada(null);
-        setMostrarModal(true);
+    useEffect(() =>{
+        const fletchBadges = async () => {
+            try {
+                if(token){
+                    const response = await api.badgeList(token);
+                    console.log(response.data);
+                    setInsignias(response.data);
+                }
+            } catch (error){
+                console.error("Error al listar insignias:", error);
+            }
+        };
+        fletchBadges();
+    }, [token]);
+
+    const handleActualizar = async (insigniaActualizada) => {
+        if (token && insigniaActualizada.id){
+            try{
+                const response = await api.badgekUpdate(insigniaActualizada.id, insigniaActualizada, token);
+
+                setInsignias((prevBadge) =>
+                    prevBadge.map((badge) =>
+                        badge.id === insigniaActualizada.id ? response.data : badge
+                    )
+                );
+                setMensaje('Insignia actualizada con éxito.');
+            } catch (error){
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor:", error.response.data);
+                } else {
+                    console.error("Error en la solicitud:", error.message);
+                }
+                setMensaje('Error al actualizar la tarea.');
+            }finally {
+
+                setInsigniaSeleccionada(null);
+                setMostrarModal(true);
+            }        
+        }
     };
 
-    const handleEliminar = () => {
+    const handleEliminar = async () => {
+        if(token){
+            try{
+                const response = await api.badgeDelete(insigniaAEliminar.id, token)
+            
+                setInsignias((prevBadge) =>
+                    prevBadge.filter((badge) => badge.id !== insigniaAEliminar.id)
+                );
+            } catch (error) {
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor:", error.response.data);
+                } else {
+                    console.error("Error en la solicitud:", error.message);
+                }
+                setMensaje('Error al actualizar la tarea.');
+            }
+        }
         setInsignias((prevInsignias) => 
             prevInsignias.filter((insignia) => insignia.id !== insigniaAEliminar.id)
         );
@@ -78,9 +122,9 @@ const ListarInsignias = () => {
                             <tbody>
                                 {insignias.map((insignia) => (
                                     <tr key={insignia.id}>
-                                        <td>{insignia.nombre}</td>
-                                        <td>{insignia.descripcion}</td>
-                                        <td>{insignia.puntos}</td>
+                                        <td>{insignia.name}</td>
+                                        <td>{insignia.description}</td>
+                                        <td>{insignia.points_required}</td>
                                         <td>
                                             <button 
                                                 className="botoneditarli" 

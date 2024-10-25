@@ -1,8 +1,8 @@
-// src/services/api.js
 import axios from 'axios';
 
 const urlApi = "http://127.0.0.1:8000/usuarios/";
 const urlApiTask = "http://127.0.0.1:8000/tareas/";
+const urlApiBadge = "http://127.0.0.1:8000/insignias/";
 
 // Crea una instancia de axios
 const apiRefresh = axios.create({
@@ -147,5 +147,46 @@ const api = {
         });
     },
 
+    // apis para insignias -----------------------------------------------------------------------------
+
+    //Crear insignias
+    badgeRegister:(name, description, points_required, token) => {
+        return axios.post(`${urlApiBadge}create/`, {
+            name,
+            description,
+            points_required,
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
+
+    // listar insignias
+    badgeList: (token) => {
+        return axios.get(`${urlApiBadge}listBadge/`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
+
+    //actualizar insignia
+    badgekUpdate: (id, datosActualizados, token) => {
+        return axios.patch(`${urlApiBadge}UpdateModifyDestroy/${id}`, datosActualizados, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
+
+    //Eliminar insignias
+    badgeDelete: (id, token) => {
+        return axios.delete(`${urlApiBadge}UpdateModifyDestroy/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
 };
 export default api;

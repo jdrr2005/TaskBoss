@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
+import api from '../../../services/api';
 import './editarInsignia.css';
 
 const EditarInsignia = ({ insignia, onActualizar, onCancelar }) => {
-    const [nombre, setNombre] = useState(insignia.nombre);
-    const [descripcion, setDescripcion] = useState(insignia.descripcion);
-    const [puntos, setPuntos] = useState(insignia.puntos);
+    const [name, setNombre] = useState(insignia.nombre || '');
+    const [description, setDescripcion] = useState(insignia.descripcion || '');
+    const [points_required, setPuntos] = useState(insignia.puntos || '');
     const [mensaje, setMensaje] = useState('');
 
-    const handleActualizar = () => {
-    
-        onActualizar({ id: insignia.id, nombre, descripcion, puntos });
-        setMensaje('Insignia actualizada con éxito.');
+    useEffect(() => {
+        if (insignia) {
+            setNombre(insignia.name || '');
+            setDescripcion(insignia.description || '');
+            setPuntos(insignia.points_required || 0);
+        }
+    }, [insignia]);
 
-    
+    const handleActualizar = (e) => {
+        e.preventDefault();
+        onActualizar({ 
+            ...insignia,
+            name, 
+            description, 
+            points_required 
+        });
+        setMensaje('Insignia actualizada con éxito.');
         setTimeout(() => {
             setMensaje('');
         }, 3000);
@@ -25,15 +37,15 @@ const EditarInsignia = ({ insignia, onActualizar, onCancelar }) => {
             <form>
                 <div>
                     <label>Nombre:</label>
-                    <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+                    <input type="text" value={name} onChange={(e) => setNombre(e.target.value)} required />
                 </div>
                 <div>
                     <label>Descripción:</label>
-                    <input type="text" value={descripcion} onChange={(e) => setDescripcion(e.target.value)} required />
+                    <input type="text" value={description} onChange={(e) => setDescripcion(e.target.value)} required />
                 </div>
                 <div>
                     <label>Puntos:</label>
-                    <input type="number" value={puntos} onChange={(e) => setPuntos(e.target.value)} required />
+                    <input type="number" value={points_required} onChange={(e) => setPuntos(e.target.value)} required />
                 </div>
                 <div className="botoneditcontenedor">
                     <button type="button" className="botonactu" onClick={handleActualizar}>Actualizar</button>
