@@ -1,56 +1,124 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import api from "../../../services/api"
 import Modal from '../../Confirmacion/ConfigMensaje';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import EditarTarea from '../editartarea/EditarTarea';
 import ConfirmacionEliminacion from '../eliminartarea/EliminarTarea';
+import { jwtDecode } from 'jwt-decode'
 import './listarTarea.css';
 
 const ListarTareas = () => {
-    const [tareas, setTareas] = useState([
-        {
-            titulo: 'Tarea 1',
-            descripcion: 'Descripción de la tarea 1',
-            prioridad: '5',
-            fechaLimite: '2024-10-10',
-            responsable: 'Juan Pérez'
-        },
-        {
-            titulo: 'Tarea 2',
-            descripcion: 'Descripción de la tarea 2',
-            prioridad: '3',
-            fechaLimite: '2024-10-12',
-            responsable: 'María López'
-        },
-        {
-            titulo: 'Tarea 3',
-            descripcion: 'Descripción de la tarea 3',
-            prioridad: '1',
-            fechaLimite: '2024-10-15',
-            responsable: 'Carlos García'
-        }
-    ]);
-    
+    const [tareas, setTareas] = useState([]);
+    const [usuarioId, setusarioId] = useState('');
+    const [nombreAsignado, setNombreAsignado] = useState('');
     const [tareaSeleccionada, setTareaSeleccionada] = useState(null);
     const [mensaje, setMensaje] = useState('');
     const [mostrarModal, setMostrarModal] = useState(false);
     const [mostrarModalEliminar, setMostrarModalEliminar] = useState(false);
     const [tareaAEliminar, setTareaAEliminar] = useState(null);
+    const token = localStorage.getItem('token');
 
-    const handleActualizar = (tareaActualizada) => {
-        setTareas((prevTareas) =>
-            prevTareas.map((tarea) =>
-                tarea.titulo === tareaSeleccionada.titulo ? tareaActualizada : tarea
-            )
-        );
-        setMensaje('Tarea actualizada con éxito.');
-        setTareaSeleccionada(null);
-        setMostrarModal(true);
+    useEffect(() => {
+        const getIdUser = () => {
+            if (token) {
+                const decodedToken = jwtDecode(token);
+                console.log("decodificacion del token " + decodedToken.userId || decodedToken.id);
+                const userId = decodedToken.user_id || decodedToken.id || decodedToken.userId;
+                if (userId) {
+                    setusarioId(userId);
+                } else {
+                    console.error("No se pudo obtener el userId del token");
+                }
+            }
+        };
+
+        getIdUser(); // Llama a getIdUser cuando se monte el componente
+    }, []);
+
+    useEffect(() => {
+        const fletchTareas = async () => {
+            try {
+                if (usuarioId) {  // Solo busca tareas si el userId está disponible
+                    const response = await api.taskList(token);
+                    const tareasPorUsuarioAsignado = response.data.filter(task => task.assigned_by === usuarioId);
+                    console.log("Tareas del usuario:", tareasPorUsuarioAsignado);
+                    console.log("id ", usuarioId);
+                    setTareas(tareasPorUsuarioAsignado);
+                }
+            } catch (error) {
+                console.error("Error al listar tareas:", error);
+            }
+        };
+
+        if (usuarioId) {
+            fletchTareas();  // Llama a fletchTareas solo cuando usuarioId esté disponible
+        }
+    }, [token, usuarioId]);
+
+    useEffect(() => {
+        const nombreUsuarioAsignado = async () => {
+            try{
+                const response = await api.userList(token);
+                const usuarioAsignado = response.data.find(user => user.user_id === tareas.assigned_to);
+                if (usuarioAsignado) {
+                    setNombreAsignado(`${usuarioAsignado.nombre} ${usuarioAsignado.apellido}`);
+                } else {
+                    console.error("No se encontró el usuario asignado.");
+                }
+            }catch (error){
+                console.error("Error al encontrar el nombre de la persona asignada:", error);
+            }
+        }
+
+        nombreUsuarioAsignado();
+    }, [token, tareas.assigned_to]);
+
+    const handleActualizar = async (tareaActualizada) => {
+        if(token && tareaActualizada.id){
+            try{
+                const response = await api.taskUpdate(tareaActualizada.id, tareaActualizada, token);
+
+                setTareas((prevTarea) => 
+                    prevTarea.map((tarea) =>
+                        tarea.id === tareaActualizada.id ? response.data : tarea
+                    )
+                );
+                setMensaje('Tarea actualizada con éxito.');
+            } catch (error) {
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor:", error.response.data);
+                } else {
+                    console.error("Error en la solicitud:", error.message);
+                }
+                setMensaje('Error al actualizar la tarea.');
+            }finally {
+                // Asegurarse de que el modal se cierre y la selección de tarea se limpie
+                setTareaSeleccionada(null);
+                setMostrarModal(true);
+            }
+        }
     };
 
-    const handleEliminar = () => {
-        setTareas((prevTareas) =>
-            prevTareas.filter((tarea) => tarea.titulo !== tareaAEliminar.titulo)
-        );
+    const handleEliminar = async () => {
+        if(token){
+            try{
+                const response = await api.taskDelete(tareaAEliminar.id, token)
+
+                setTareas((prevTareas) =>
+                    prevTareas.filter((tarea) => tarea.id !== tareaAEliminar.id)
+                );
+                setMensaje('Tarea actualizada con éxito.');
+            } catch (error){
+                if (error.response) {
+                    console.error("Error en la respuesta del servidor:", error.response.data);
+                } else {
+                    console.error("Error en la solicitud:", error.message);
+                }
+                setMensaje('Error al actualizar la tarea.');
+            }
+           
+        }
+        
         setMostrarModalEliminar(false);
         setMensaje('Tarea eliminada con éxito.');
         setMostrarModal(true);
@@ -99,11 +167,11 @@ const ListarTareas = () => {
                             <tbody>
                                 {tareas.map((tarea, index) => (
                                     <tr key={index}>
-                                        <td>{tarea.titulo}</td>
-                                        <td>{tarea.descripcion}</td>
-                                        <td>{tarea.prioridad}</td>
-                                        <td>{tarea.fechaLimite}</td>
-                                        <td>{tarea.responsable}</td>
+                                        <td>{tarea.title}</td>
+                                        <td>{tarea.description}</td>
+                                        <td>{tarea.priority}</td>
+                                        <td>{tarea.deadline}</td>
+                                        <td>{nombreAsignado}</td>
                                         <td>
                                             <button
                                                 className="edit-button"

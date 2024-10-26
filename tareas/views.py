@@ -23,7 +23,4 @@ class ListTaskByBoss(generics.ListAPIView):
     serializer_class = taskSerializer
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        user = self.request.user
-        return Task.objects.filter(assigned_by = user)
+    queryset = Task.objects.all()

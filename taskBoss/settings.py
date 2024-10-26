@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'usuarios',
-    'tareas'
+    'tareas',
+    'insignias',
 ]
 
 MIDDLEWARE = [
@@ -154,6 +156,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=45),  # Tiempo de vida del Access Token
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Tiempo de vida del Refresh Token
+    'ROTATE_REFRESH_TOKENS': True,                  # Rota los tokens refresh tras su uso
+    'BLACKLIST_AFTER_ROTATION': True,               # Invalida los tokens refresh tras rotarlos
 }
 
 # Cambia el usuario para usar el modelo propio
