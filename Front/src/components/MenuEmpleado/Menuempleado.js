@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import './menufuncion.css';
+import '../Menu_funcion/menufuncion.css';
 
-const BarraLateral = () => {
+const MenuEmpleado = () => {
     const [mostrarMenu, setMostrarMenu] = useState(false);
     const navegar = useNavigate();
 
@@ -26,11 +26,9 @@ const BarraLateral = () => {
                         <FaArrowLeft />
                     </div>
                     <ul>
-                        <li><button onClick={() => navegar('/usuarios')}>Usuarios</button></li>
-                        <li><button onClick={() => navegar('/tareas')}>Tareas</button></li>
-                        <li><button onClick={() => navegar('/insignias')}>Insignias</button></li>
-                        <li><button onClick={() => navegar('/progreso')}>Progreso</button></li>
-                        <li><button onClick={() => navegar('/perfiljefe')}>Perfil</button></li>
+                        <li><button onClick={() => navegar('/tareaempleado')}>Tareas</button></li>
+                        <li><button onClick={() => navegar('/insigniaempleado')}>Insignias</button></li>
+                        <li><button onClick={() => navegar('/perfilempleado')}>Perfil</button></li> {/* Enlace al perfil del empleado */}
                     </ul>
                     <div className="contenedorcerrarsesion">
                         <button className="botoncerrarsesion">Cerrar Sesión</button>
@@ -41,4 +39,4 @@ const BarraLateral = () => {
     );
 };
 
-export default BarraLateral;
+export default MenuEmpleado;
