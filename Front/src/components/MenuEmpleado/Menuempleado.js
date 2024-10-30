@@ -31,7 +31,7 @@ const MenuEmpleado = () => {
                         <li><button onClick={() => navegar('/perfilempleado')}>Perfil</button></li> {/* Enlace al perfil del empleado */}
                     </ul>
                     <div className="contenedorcerrarsesion">
-                        <button className="botoncerrarsesion">Cerrar Sesión</button>
+                        <button className="botoncerrarsesion" onClick={() => navegar('/')}n>Cerrar Sesión</button>
                     </div>
                 </div>
             )}
