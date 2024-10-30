@@ -103,15 +103,7 @@ const EditarTarea = ({ tarea, onActualizar, onCancelar }) => {
                         required
                     />
                 </div>
-                <div>
-                    <label>Responsable:</label>
-                    <input
-                        type="text"
-                        value={responsable}
-                        onChange={(e) => setResponsable(e.target.value)}
-                        required
-                    />
-                </div>
+
                 <div className="botoncontt">
                     <button type="button" className="editar" onClick={handleActualizar}>
                         Actualizar
