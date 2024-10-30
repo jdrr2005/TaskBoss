@@ -11,6 +11,14 @@ const MenuEmpleado = () => {
         setMostrarMenu(!mostrarMenu);
     };
 
+    const manejarCerrarSesion = () => {
+        // Eliminar el token del localStorage
+        localStorage.removeItem('token');
+        
+        // Redirigir al usuario a la página de inicio de sesión o donde desees
+        navegar('/');
+    };
+
     return (
         <div className="contenedorbarralateral">
             <div className="encabezadodashboard">
@@ -31,7 +39,7 @@ const MenuEmpleado = () => {
                         <li><button onClick={() => navegar('/perfilempleado')}>Perfil</button></li> {/* Enlace al perfil del empleado */}
                     </ul>
                     <div className="contenedorcerrarsesion">
-                        <button className="botoncerrarsesion" onClick={() => navegar('/')}n>Cerrar Sesión</button>
+                        <button className="botoncerrarsesion" onClick={manejarCerrarSesion}>Cerrar Sesión</button>
                     </div>
                 </div>
             )}
