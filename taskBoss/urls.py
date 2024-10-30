@@ -18,6 +18,12 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
     "apellido":"Jimenez"
 """
 
+# Usuario jefe 
+"""
+    email: jefe1@gmail.com
+    contrasena: jefe1
+"""
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuarios/', include('usuarios.urls')),

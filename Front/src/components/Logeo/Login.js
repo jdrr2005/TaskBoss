@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaLock, FaUser } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'
 import './login.css';
 import authService from "../../services/api";
 
@@ -27,7 +28,14 @@ const Login = () => {
                 if (response.data && response.data.access) {
                     localStorage.setItem('token', response.data.access);
                     localStorage.setItem('refresh', response.data.refresh);
-                    navigate('/prinjefe');
+
+                    const decodedToken = jwtDecode(response.data.access);
+
+                    if (decodedToken.rol === 'Empleado'){
+                        navigate('/prinempleado');
+                    } else {
+                        navigate('/prinjefe');
+                    }
                 } else {
                     setMessage("Error: Token no encontrado en la respuesta.");
                 }

@@ -44,4 +44,11 @@ class EmpeladoListView(generics.ListAPIView):
 #Serializador del tokenJWT
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+    
+# lista todos los usuarios (empleados y jefes)
+class UserList(generics.ListAPIView):
+    serializer_class = Usuarioserializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+    queryset = CustomUser.objects.all()
    
