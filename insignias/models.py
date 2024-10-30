@@ -19,5 +19,5 @@ class UserBadge(models.Model):
     awarded_at = models.DateField(auto_now_add=True)  # Fecha en que se otorga la insignia
 
     def __str__(self):
-        return f"{self.user.username} - {self.badge.name}"  # Retorna una representación del objeto
+        return f"{self.user.nombre} - {self.badge.name}"  # Retorna una representación del objeto
 

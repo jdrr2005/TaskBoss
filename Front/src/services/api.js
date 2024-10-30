@@ -49,7 +49,7 @@ apiRefresh.interceptors.response.use(
 
 
 const api = {
-    // apis para Login ----------------------------------------------------
+    // apis para Login y usuarios ----------------------------------------------------
 
     //api para logear
     login: (email, password) => {
@@ -74,7 +74,7 @@ const api = {
         });
     },
 
-    //api para listar usarios
+    //api para listar usarios (empleados)
     userList: (token) => {
         return axios.get(`${urlApi}getList/`, {
             headers: {
@@ -100,6 +100,16 @@ const api = {
             }
         });
     },
+
+    //api para listar usuarios (empleados y jefes)
+    userListAll: (token) => {
+        return axios.get(`${urlApiTask}userList/`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+    },
+
 
     // apis para tareas ---------------------------------------------------------------------------------
     
@@ -185,6 +195,28 @@ const api = {
         return axios.delete(`${urlApiBadge}UpdateModifyDestroy/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
+
+    //apis de enlace de id usario e insignia------------------------------------------------------------
+
+    //Crear insignias
+    badgeUBRegister:(userId, badgeId, token) => {
+        return axios.post(`${urlApiBadge}createUB/`, {
+            user: userId, badge: badgeId
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+            }
+        });
+    },
+
+     // listar insignias
+     badgeUBList: (token) => {
+        return axios.get(`${urlApiBadge}listUserBadge/`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
             }
         });
     },

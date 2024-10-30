@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import api from "../../../services/api"
+import api from "../../../services/api";
 import Modal from '../../Confirmacion/ConfigMensaje';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import EditarTarea from '../editartarea/EditarTarea';
 import ConfirmacionEliminacion from '../eliminartarea/EliminarTarea';
-import { jwtDecode } from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 import './listarTarea.css';
 
 const ListarTareas = () => {
@@ -22,7 +22,9 @@ const ListarTareas = () => {
         const getIdUser = () => {
             if (token) {
                 const decodedToken = jwtDecode(token);
-                console.log("decodificacion del token " + decodedToken.userId || decodedToken.id);
+                console.log("decodificacion del token " + decodedToken.user_id || decodedToken.id + decodedToken.data);
+                console.log("informacion del token ", decodedToken);
+                console.log("rol del token ", decodedToken.rol);
                 const userId = decodedToken.user_id || decodedToken.id || decodedToken.userId;
                 if (userId) {
                     setusarioId(userId);
