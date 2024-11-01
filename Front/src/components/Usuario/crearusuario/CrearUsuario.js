@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import './crearUsuario.css';
-
 const CrearUsuario = () => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
@@ -9,6 +9,7 @@ const CrearUsuario = () => {
     const [contrasena, setContrasena] = useState('');
     const [rol, setRol] = useState('Empleado');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const navigate = useNavigate(); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -23,6 +24,7 @@ const CrearUsuario = () => {
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
+        navigate('/listar-usuario'); 
     };
 
     return (

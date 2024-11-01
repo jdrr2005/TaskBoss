@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import './crearTarea.css';
 
@@ -10,6 +11,7 @@ const CrearTarea = () => {
     const [asignarA, setAsignarA] = useState('');
     const [puntos, setPuntos] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const navigate = useNavigate(); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -25,6 +27,7 @@ const CrearTarea = () => {
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
+        navigate('/listar-tarea'); 
     };
 
     return (

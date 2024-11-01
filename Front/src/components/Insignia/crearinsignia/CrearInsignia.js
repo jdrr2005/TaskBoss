@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import './crearInsignia.css';
-
 const CrearInsignia = () => {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [puntos, setPuntos] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); 
-
+    const navigate = useNavigate(); 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Insignia creada:', { nombre, descripcion, puntos }); 
@@ -19,6 +19,7 @@ const CrearInsignia = () => {
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
+        navigate('/listar-insignias'); 
     };
 
     return (
