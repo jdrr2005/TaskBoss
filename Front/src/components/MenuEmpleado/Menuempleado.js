@@ -28,7 +28,8 @@ const MenuEmpleado = () => {
                     <ul>
                         <li><button onClick={() => navegar('/tareaempleado')}>Tareas</button></li>
                         <li><button onClick={() => navegar('/insigniaempleado')}>Insignias</button></li>
-                        <li><button onClick={() => navegar('/perfilempleado')}>Perfil</button></li> {/* Enlace al perfil del empleado */}
+                        <li><button onClick={() => navegar('/encuestaempleado')}>Encuesta</button></li>
+                        <li><button onClick={() => navegar('/perfilempleado')}>Perfil</button></li>
                     </ul>
                     <div className="contenedorcerrarsesion">
                         <button className="botoncerrarsesion">Cerrar Sesión</button>

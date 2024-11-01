@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import EncuestaEmpleado from './components/EncuestaEmpleado/EncuestaEmpleado';
 import CrearEncuesta from './components/EncuestaJefe/CrearEncuesta/CrearEncuesta';
 import Encuestas from './components/EncuestaJefe/EncuestaPrin/Encuesta';
 import ListarEncuestas from './components/EncuestaJefe/ListarEncuestas/ListarEncuesta';
@@ -47,6 +48,7 @@ const App = () => {
                 <Route path="/encuestajefe" element={<Encuestas/>}/>
                 <Route path="/crear-encuesta" element={<CrearEncuesta/>}/>
                 <Route path="/listar-encuesta" element={<ListarEncuestas/>}/>
+                <Route path="/encuestaempleado" element={<EncuestaEmpleado/>}/>
             </Routes>
         </Router>
     );
