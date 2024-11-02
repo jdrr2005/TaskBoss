@@ -56,8 +56,8 @@ const TareaEmpleado = () => {
             const badgeAwarded = response.data.find(badge => badge.points_required === Earned_points);
 
             if (badgeAwarded) {
-                // Registrar el badge para el usuario
-                await api.badgeUBRegister(userId, badgeAwarded.id, token);
+                console.log("Asignando insignia:", { userId, badgeId: badgeAwarded });
+                await api.badgeUBRegister(userId, badgeAwarded, token);
             }
             
             // Realiza la petición al backend para actualizar el estado de la tarea
