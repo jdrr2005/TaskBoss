@@ -129,11 +129,6 @@ const CrearTarea = () => {
                                 </option>
                             ))}
                         </select>
-                        <input
-                        //Asignado por
-                        value={asignadoPor}
-                        readOnly
-                        />
                         <label>Puntos:</label>
                         <input 
                             type="number" 

@@ -4,7 +4,7 @@ from rest_framework import serializers
 class badgeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Badge
-        fields = ['name', 'description']
+        fields = ['id', 'name', 'description', 'points_required']
     
     def crear(self, validated_data):
         return Badge.objects.create(**validated_data)
@@ -21,13 +21,13 @@ class userBadgeSerializer(serializers.ModelSerializer):
     badge = badgeSerializer()
     class Meta:
         model = UserBadge
-        fields = ['badge', 'awarded_at', 'user']
+        fields = ['id', 'user', 'badge']
         
     def create(self, validated_data):
         return UserBadge.objects.create(**validated_data)
     
     def update(self, instance, validated_data):
-        instance.user = validated_data.get('name', instance.user)
+        instance.user = validated_data.get('user', instance.user)
         instance.badge = validated_data.get('badge', instance.badge)
         instance.awarded_at = validated_data.get('awarded_at', instance.awarded_at)
         

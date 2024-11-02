@@ -19,7 +19,10 @@ import CrearUsuario from './components/Usuario/crearusuario/CrearUsuario';
 import ListarUsuario from './components/Usuario/listarusuario/ListarUsuarios';
 import Usuario from './components/Usuario/principal/Usuario';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-
+import Encuestas from './components/EncuestaJefe/EncuestaPrin/Encuesta';
+import CrearEncuesta from './components/EncuestaJefe/CrearEncuesta/CrearEncuesta';
+import ListarEncuestas from './components/EncuestaJefe/ListarEncuesta/ListarEncuesta';
+import EncuestaEmpleado from './components/EncuestaEmpleado/EncuestaEmpleado';
 
 const App = () => {
     return (
@@ -45,6 +48,10 @@ const App = () => {
                 <Route path="/perfilempleado" element={<PerfilEmpleado/>}/>
                 <Route path="/insigniaempleado" element={<InsigniaEmpleado/>}/>
                 <Route path="/tareaempleado" element={<TareaEmpleado/>}/>
+                <Route path="/encuestajefe" element={<Encuestas/>}/>
+                <Route path="/crear-encuesta" element={<CrearEncuesta/>}/>
+                <Route path="/listar-encuesta" element={<ListarEncuestas/>}/>
+                <Route path="/encuestaempleado" element={<EncuestaEmpleado/>}/>
             </Routes>
         </Router>
     );
