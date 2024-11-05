@@ -40,6 +40,7 @@ const BarraLateral = () => {
                         <li><button onClick={() => navegar('/progreso')}>Progreso</button></li>
                         <li><button onClick={() => navegar('/encuestajefe')}>Encuesta</button></li>
                         <li><button onClick={() => navegar('/perfiljefe')}>Perfil</button></li>
+                        <li><button onClick={() => navegar('/encuestajefe')}>Encuestas</button></li>
                     </ul>
                     <div className="contenedorcerrarsesion">
                         <button className="botoncerrarsesion" onClick={manejarCerrarSesion}>Cerrar Sesión</button>

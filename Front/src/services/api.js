@@ -204,7 +204,8 @@ const api = {
     //Crear insignias
     badgeUBRegister:(userId, badgeId, token) => {
         return axios.post(`${urlApiBadge}createUB/`, {
-            user: userId, badge: badgeId
+            user: userId, 
+            badge: badgeId
         }, {
             headers: {
                 'Authorization': `Bearer ${token}` // Agregar el token en el encabezado

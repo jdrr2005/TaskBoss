@@ -1,5 +1,9 @@
 import React from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import EncuestaEmpleado from './components/EncuestaEmpleado/EncuestaEmpleado';
+import CrearEncuesta from './components/EncuestaJefe/CrearEncuesta/CrearEncuesta';
+import Encuestas from './components/EncuestaJefe/EncuestaPrin/Encuesta';
+import ListarEncuestas from './components/EncuestaJefe/ListarEncuesta/ListarEncuesta';
 import CrearInsignia from './components/Insignia/crearinsignia/CrearInsignia';
 import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia';
 import Insignias from './components/Insignia/principal/Insignia';
@@ -18,8 +22,6 @@ import CrearUsuario from './components/Usuario/crearusuario/CrearUsuario';
 import ListarUsuario from './components/Usuario/listarusuario/ListarUsuarios';
 import Usuario from './components/Usuario/principal/Usuario';
 
-
-
 const App = () => {
     return (
         <Router>
@@ -30,9 +32,11 @@ const App = () => {
                 <Route path="/usuarios" element={<Usuario />} />
                 <Route path="/crear-usuario" element={<CrearUsuario />} />
                 <Route path="/listar-usuario" element={<ListarUsuario />} />
+
                 <Route path="/tareas" element={<Tareas/>}/>
                 <Route path="/crear-tarea" element={<CrearTarea/>}/>
                 <Route path="/listar-tarea" element={<ListarTareas/>}/>
+                    
                 <Route path="/insignias" element={<Insignias/>} />
                 <Route path="/crear-insignia" element={<CrearInsignia/>}/>
                 <Route path="/listar-insignias" element={<ListarInsignias/>}/>
