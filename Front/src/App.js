@@ -1,9 +1,5 @@
 import React from 'react';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import EncuestaEmpleado from './components/EncuestaEmpleado/EncuestaEmpleado';
-import CrearEncuesta from './components/EncuestaJefe/CrearEncuesta/CrearEncuesta';
-import Encuestas from './components/EncuestaJefe/EncuestaPrin/Encuesta';
-import ListarEncuestas from './components/EncuestaJefe/ListarEncuestas/ListarEncuesta';
 import CrearInsignia from './components/Insignia/crearinsignia/CrearInsignia';
 import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia';
 import Insignias from './components/Insignia/principal/Insignia';
@@ -21,6 +17,7 @@ import TareaEmpleado from './components/TareaEmpleado/tareaEmpleado';
 import CrearUsuario from './components/Usuario/crearusuario/CrearUsuario';
 import ListarUsuario from './components/Usuario/listarusuario/ListarUsuarios';
 import Usuario from './components/Usuario/principal/Usuario';
+
 
 
 const App = () => {
