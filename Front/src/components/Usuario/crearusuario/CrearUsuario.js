@@ -1,19 +1,9 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from "../../../services/api";
 import Sidebar from '../../Menu_funcion/Menufuncion';
-import { useNavigate } from 'react-router-dom';
 import './crearUsuario.css';
-<<<<<<< HEAD
-const CrearUsuario = () => {
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [correo, setCorreo] = useState('');
-    const [contrasena, setContrasena] = useState('');
-    const [rol, setRol] = useState('Empleado');
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const navigate = useNavigate(); 
-=======
-import api from "../../../services/api"
 
 const Resgister = () => {
     const [formData, setFormData] = useState({
@@ -32,17 +22,11 @@ const Resgister = () => {
             [e.target.name]: e.target.value
         });
     };
->>>>>>> dev
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
 
-<<<<<<< HEAD
-    const handleCloseModal = () => {
-        setIsModalVisible(false);
-        navigate('/listar-usuario'); 
-=======
         if (!token) {
             setMessage("Error: no se encontró un token de autenticación.");
             return;
@@ -60,7 +44,6 @@ const Resgister = () => {
                 console.log("Error en el registro:", error);
                 setMessage("Error al registrarse: " + (error.response?.data?.detail || "Error desconocido"));
             });
->>>>>>> dev
     };
 
     return (

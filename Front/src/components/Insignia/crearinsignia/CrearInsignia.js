@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
-<<<<<<< HEAD
-import { useNavigate } from 'react-router-dom';
-=======
 import api from '../../../services/api';
->>>>>>> dev
 import Sidebar from '../../Menu_funcion/Menufuncion';
 import './crearInsignia.css';
+
 const CrearInsignia = () => {
     const [name, setNombre] = useState('');
     const [description, setDescripcion] = useState('');
     const [points_required, setPuntos] = useState('');
     const [isModalVisible, setIsModalVisible] = useState(false); 
-<<<<<<< HEAD
-    const navigate = useNavigate(); 
-    const handleSubmit = (e) => {
-=======
 
     const handleSubmit = async (e) => {
->>>>>>> dev
         e.preventDefault();
         const token = localStorage.getItem('token');
 
@@ -48,7 +40,6 @@ const CrearInsignia = () => {
 
     const handleCloseModal = () => {
         setIsModalVisible(false);
-        navigate('/listar-insignias'); 
     };
 
     return (
