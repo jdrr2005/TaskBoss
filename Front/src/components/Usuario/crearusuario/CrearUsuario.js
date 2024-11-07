@@ -45,8 +45,10 @@ const Resgister = () => {
                 setMessage("Error al registrarse: " + (error.response?.data?.detail || "Error desconocido"));
             });
     };
+    const navegar = useNavigate();
 
     return (
+       
         <div className="crearusuariocontainer">
             <Sidebar />
             <div className="vistacrearusuario">
@@ -90,7 +92,7 @@ const Resgister = () => {
                             <option value="Empleado">Empleado</option>
                             <option value="Jefe">Jefe</option>
                         </select>
-                        <button type="submit">Crear Usuario</button>
+                        <button onClick={() => navegar('/listar-usuario')}>Crear Usuario</button>
                         {message && <p>{message}</p>}
                     </form>
                 </div>

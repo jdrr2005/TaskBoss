@@ -1,63 +1,63 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #f7f8fc;
-    margin: 0;
-    padding: 0;
-}
-
-.contenedorperfiljefe {
+.ventanaempleado {
     display: flex;
-    align-items: flex-start;
-    background-color: #f7f8fc;
-    min-height: 100vh;
+    height: 100vh;
+    background-color: #f4f7fc; /* Fondo suave */
 }
 
-
-.contenidoperfiljefe {
+.textoempleado {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
     display: flex;
     justify-content: center;
-    padding: 50px;
-    width: 100%;
+    align-items: center;
 }
 
-.perfiljefetarjeta {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    width: 400px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.perfiljefetarjeta:hover {
-    transform: translateY(-10px);
-    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
-}
-
-.perfiljefeheader {
+.contenedorempleado {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #000;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
     text-align: center;
+    height: 300px; /* Más espacio para el contenido */
+    width: 100%;
+    max-width: 500px; /* Contenedor más ancho */
+}
+
+.contenedorempleado h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #4caf50; /* Color atractivo */
     margin-bottom: 20px;
 }
 
-.perfiljefeemoji {
-    font-size: 90px;
-}
-
-h2 {
-    font-size: 26px;
-    color: #333;
-    margin-top: 10px;
-}
-
-.perfiljefeinfo p {
-    margin: 10px 0;
+.contenedorempleado p {
+    font-size: 18px;
+    line-height: 1.6;
     color: #555;
-    font-size: 16px;
+    margin-bottom: 30px;
 }
 
-.perfiljefeinfo strong {
-    color: #333;
+.contenedorempleado .iconos {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.icono {
+    font-size: 30px;
+    color: #4caf50;
+    transition: transform 0.3s ease;
+}
+
+.icono:hover {
+    transform: scale(1.2); /* Efecto de aumento */
+}
+
+@media (max-width: 768px) {
+    .contenedorempleado {
+        max-width: 100%;
+        padding: 20px;
+    }
 }

@@ -1,8 +1,8 @@
+import { jwtDecode } from 'jwt-decode';
 import React, { useEffect, useState } from 'react';
+import api from '../../services/api';
 import Sidebar from '../MenuEmpleado/Menuempleado';
-import api from '../../services/api'
 import './perfilempleado.css';
-import { jwtDecode } from 'jwt-decode'
 
 const PerfilEmpleado = () => {
 

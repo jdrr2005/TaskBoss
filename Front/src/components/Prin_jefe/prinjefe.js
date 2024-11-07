@@ -1,10 +1,11 @@
 import React from 'react';
-import { FaAward, FaChartLine, FaTasks, FaUsers } from 'react-icons/fa';
 import Sidebar from '../Menu_funcion/Menufuncion';
 import './prinjefe.css';
 
+
 const PrinJefe = () => {
     return (
+        
         <div className="ventanajefe">
             <Sidebar />
             <div className="textojefe">
@@ -16,22 +17,22 @@ const PrinJefe = () => {
                     </p>
                     <div className="funcionalidades">
                         <div className="funcion">
-                            <FaTasks className="icono" />
+                            
                             <h4>Gestión de Tareas</h4>
                             <p>Asignar y organizar tareas para tu equipo de forma eficiente.</p>
                         </div>
                         <div className="funcion">
-                            <FaChartLine className="icono" />
+                           
                             <h4>Monitoreo de Progreso</h4>
                             <p>Visualiza el progreso semanal.</p>
                         </div>
                         <div className="funcion">
-                            <FaAward className="icono" />
+                            
                             <h4>Sistema de Insignias</h4>
                             <p>Reconoce el esfuerzo de tu equipo con insignias y motivación.</p>
                         </div>
                         <div className="funcion">
-                            <FaUsers className="icono" />
+                           
                             <h4>Gestión de Usuarios</h4>
                             <p>Controla el acceso y gestiona los roles de cada usuario en la plataforma.</p>
                         </div>
