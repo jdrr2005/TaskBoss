@@ -9,6 +9,7 @@ import ListarInsignias from './components/Insignia/listarinsignia/ListarInsignia
 import Insignias from './components/Insignia/principal/Insignia';
 import InsigniaEmpleado from './components/InsigniaEmpleado/Insigniaempleado';
 import Login from './components/Logeo/Login';
+import Logo from './components/Logo/Logo';
 import PerfilEmpleado from './components/PerfilEmpleado/perfilempleado';
 import PerfilJefe from './components/PerfilJefe/Perfiljefe';
 import PrinEmpleado from './components/Prin_Empleado/prinempleado';
@@ -25,6 +26,7 @@ import Usuario from './components/Usuario/principal/Usuario';
 const App = () => {
     return (
         <Router>
+            <Logo/>
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />

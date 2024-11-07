@@ -1,0 +1,15 @@
+
+.header {
+    position: fixed;
+    top: 20px;
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 100px;
+    height: auto;
+    z-index: 1000;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+}

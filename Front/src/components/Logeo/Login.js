@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import authService from "../../services/api";
 import './login.css';
 
+
 const Login = () => {
     const [formData, setFormData] = useState({
         email: '',
@@ -72,6 +73,5 @@ const Login = () => {
             </div>
         </div>
     );
-};
-
+};    
 export default Login;
