@@ -82,12 +82,30 @@ WSGI_APPLICATION = 'taskBoss.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql',
+        'NAME': 'taskboss',  # Nombre de la base de datos en SQL Server
+        'USER': 'juan2',  # Si usas autenticación SQL Server
+        'PASSWORD': '12345',  # Si usas autenticación SQL Server
+        'HOST': 'DESKTOP-0B0789L\\SQLEXPRESS',  # Dirección del servidor SQL Server.
+  # Dirección del servidor SQL Server. Puede ser 'localhost' o una IP.
+        'PORT': '1433',  # Puerto por defecto para SQL Server.
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'TrustServerCertificate': 'yes',
+            'autocommit': True,
+        },
+    }
 }
+
 
 
 # Password validation
