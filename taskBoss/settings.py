@@ -91,18 +91,12 @@ WSGI_APPLICATION = 'taskBoss.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'taskboss',  # Nombre de la base de datos en SQL Server
-        'USER': 'juan2',  # Si usas autenticación SQL Server
-        'PASSWORD': '12345',  # Si usas autenticación SQL Server
-        'HOST': 'DESKTOP-0B0789L\\SQLEXPRESS',  # Dirección del servidor SQL Server.
-  # Dirección del servidor SQL Server. Puede ser 'localhost' o una IP.
-        'PORT': '1433',  # Puerto por defecto para SQL Server.
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'TrustServerCertificate': 'yes',
-            'autocommit': True,
-        },
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'localhost',
+        'PORT': 5432,  # Puerto por defecto para SQL Server.
+        'NAME': 'taskboss',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
     }
 }
 
