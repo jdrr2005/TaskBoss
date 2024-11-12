@@ -7,4 +7,4 @@ from emails.utils import sendMailTask  # Importa la función de envío
 def sendEmailTaskAssigned(sender, instance, created, **kwargs):
     # Solo enviamos el correo si la Task es nueva y tiene un empleado asignado
     if created and instance.assigned_to:
-        sendMailTask(instance.title, instance.assigned_to.email)
+        sendMailTask(instance.title, instance.assigned_to.email, instance.deadline)
