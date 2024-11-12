@@ -176,6 +176,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587 
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL 
-EMAIL_HOST_PASSWORD = 'bossTask.24'  
+EMAIL_HOST_PASSWORD = 'fjyrdaqbmuzediqj'  
 # emali TaskBoss2024@outlook.com || taskboss2024@gmail.com
 # contraseña bossTask. || bossTask.24
