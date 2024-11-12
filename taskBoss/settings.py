@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'usuarios',
     'tareas',
     'insignias',
+    'emails',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'taskBoss.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,7 +114,6 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
     'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
 ]
-
 
 
 
@@ -169,4 +169,13 @@ SIMPLE_JWT = {
 # Cambia el usuario para usar el modelo propio
 AUTH_USER_MODEL = 'usuarios.CustomUser'
 
-
+# Configuración básica del envío de correos
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = 'taskboss2024@gmail.com'
+EMAIL_USE_TLS = True 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587 
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL 
+EMAIL_HOST_PASSWORD = 'fjyrdaqbmuzediqj'  
+# emali TaskBoss2024@outlook.com || taskboss2024@gmail.com
+# contraseña bossTask. || bossTask.24

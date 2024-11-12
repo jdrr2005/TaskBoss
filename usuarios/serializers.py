@@ -39,9 +39,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         return token
     
-    # Sobreescribir para que funcione con tu modelo
     def validate(self, attrs):
-         # Asegúrate de que el 'email' esté presente
+        
         attrs['username'] = attrs.get('email')
         email = attrs.get("email")
         password = attrs.get("password")

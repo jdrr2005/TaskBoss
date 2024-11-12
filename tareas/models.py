@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from usuarios.models import CustomUser
+from django.core.validators import MaxValueValidator
 
 class Task(models.Model):
     PRIORITY_CHOICES = [
@@ -23,7 +24,8 @@ class Task(models.Model):
     deadline = models.DateField(null=True, blank=True)  # Fecha límite (opcional)
     assigned_to = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_to')  # FK empleado
     assigned_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned_by')  # FK jefe
-    points = models.PositiveIntegerField(default=0)  # Puntos obtenidos por la tarea completada
+    points = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(99)])  # Puntos obtenidos por la tarea completada
 
     def __str__(self):
         return self.title
+    

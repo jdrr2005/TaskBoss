@@ -167,7 +167,7 @@ const api = {
             points_required,
         }, {
             headers: {
-                'Authorization': `Bearer ${token}` // Agregar el token en el encabezado
+                'Authorization': `Bearer ${token}` 
             }
         });
     },
@@ -214,7 +214,7 @@ const api = {
     },
 
      // listar insignias
-     badgeUBList: (token) => {
+    badgeUBList: (token) => {
         return axios.get(`${urlApiBadge}listUserBadge/`, {
             headers: {
                 'Authorization': `Bearer ${token}`

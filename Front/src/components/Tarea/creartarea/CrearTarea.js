@@ -52,7 +52,7 @@ const CrearTarea = () => {
             );
 
             console.log("Tarea creada:", response.data);
-            setIsModalVisible(true); // Mostrar modal de confirmación
+            setIsModalVisible(true); 
 
         } catch (error) {
             console.error("Error al crear la tarea:", error);
